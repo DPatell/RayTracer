@@ -12,7 +12,7 @@ public:
 
 	}
 
-	Sphere(Point3 cen, double r) : center(cen), radius(r)
+	Sphere(Point3 cen, double r, std::shared_ptr<Material> mat) : center(cen), radius(r), materialPtr(mat)
 	{
 
 	}
@@ -22,6 +22,7 @@ public:
 public:
 	Point3 center;
 	double radius;
+	std::shared_ptr<Material> materialPtr;
 };
 
 bool Sphere::Hit(const Ray& r, double tMin, double tMax, HitRecord& record) const
@@ -50,6 +51,7 @@ bool Sphere::Hit(const Ray& r, double tMin, double tMax, HitRecord& record) cons
 	record.point = r.At(record.t);
 	Vec3 outwardNormal = (record.point - center) / radius;
 	record.setFaceNormal(r, outwardNormal);
+	record.materialPtr = materialPtr;
 
 	return true;
 }

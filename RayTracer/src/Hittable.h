@@ -2,10 +2,13 @@
 
 #include "RayTracer.h"
 
+class Material;
+
 struct HitRecord
 {
 	Point3 point;
 	Vec3 normal;
+	std::shared_ptr<Material> materialPtr;
 	double t;
 	bool frontFace;
 

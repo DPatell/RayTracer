@@ -57,6 +57,13 @@ public:
 		return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
 	}
 
+	bool NearZero() const
+	{
+		// Return true if the vector is close to zero in all dimensions
+		const auto s = 1e-8;
+		return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
+	}
+
 	inline static Vec3 Random()
 	{
 		return Vec3(RandomDouble(), RandomDouble(), RandomDouble());
@@ -149,6 +156,11 @@ Vec3 RandomInHemisphere(const Vec3& normal)
 	{
 		return -inUnitSphere;
 	}
+}
+
+Vec3 Reflect(const Vec3& v, const Vec3& n)
+{
+	return v - 2 * Dot(v, n)*n;
 }
 
 // Type Aliases for Vec3
